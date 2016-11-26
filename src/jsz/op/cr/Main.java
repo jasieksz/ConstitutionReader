@@ -5,7 +5,7 @@ package jsz.op.cr;
  */
 public class Main {
     public static void main(String args[]){
-        ConstitutionReader reader1 = new ConstitutionReader();
+        ConstitutionShower reader1 = new ConstitutionShower();
         reader1.readConstitution(args);
     }
 }
