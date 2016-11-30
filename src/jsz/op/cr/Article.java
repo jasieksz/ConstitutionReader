@@ -9,6 +9,5 @@ import java.util.List;
 */
 public class Article {
 
-    private List<Point> pointList = new ArrayList<>();
     private int number;
 }
