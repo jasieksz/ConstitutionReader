@@ -7,7 +7,8 @@ package jsz.op.cr;
 public class ConstitutionShower {
 
     protected void readConstitution(String args[]){
-        System.out.println("Tekst");
+        String s = "test i drugia";
+            System.out.println(s.substring(s.indexOf("d")+1,s.length()));
 
     }
 }
