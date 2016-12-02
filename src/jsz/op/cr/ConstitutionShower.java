@@ -1,6 +1,7 @@
 package jsz.op.cr;
 
 import java.io.IOException;
+import java.util.List;
 
 /*
     This class is responsible for showing selected chapters
@@ -8,15 +9,18 @@ import java.io.IOException;
  */
 public class ConstitutionShower {
 
-    public TextParser parser = new TextParser();
+    private TextParser parser = new TextParser();
+    public Constitution constitution = new Constitution();
 
     protected void readConstitution(String args[]){
         try {
             parser.readConstitutuion("C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt");
-            parser.printConstitution();
+            constitution.objectifyConstitution(parser.getConstitutionArray());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
+
 }
 

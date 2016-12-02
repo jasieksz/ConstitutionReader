@@ -23,6 +23,10 @@ public class TextParser {
     private final static Charset ENCODING = StandardCharsets.UTF_8;
     private List<String> constitutionArray = new ArrayList<>();
 
+    public List<String> getConstitutionArray() {
+        return constitutionArray;
+    }
+
     public void readConstitutuion(String FileName) throws IOException {
         Path path = Paths.get(FileName);
         try (BufferedReader reader = Files.newBufferedReader(path, ENCODING)){
@@ -30,7 +34,7 @@ public class TextParser {
             String lineTmp = null;
             Integer i = 0;
             while ((line = reader.readLine()) != null){
-                if (line.equals("©Kancelaria Sejmu") || line.matches("....-..-.."))
+                if (line.equals("©Kancelaria Sejmu") || line.matches("....-..-..") || line.length() < 2)
                     System.out.print("");
                 else{
                     if (line.endsWith("-")){
@@ -60,7 +64,7 @@ public class TextParser {
         }
     }
 
-    void printConstitution (){
+    public void printConstitution (){
         for (String line : constitutionArray) {
             System.out.println(line);
         }
