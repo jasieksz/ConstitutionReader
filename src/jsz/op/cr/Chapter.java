@@ -20,4 +20,10 @@ public class Chapter {
     public void addArticle(Article article){
         articleList.add(article);
     }
+
+    public void printArticles (){
+        for (Article article : articleList) {
+            System.out.println(article.toString());
+        }
+    }
 }

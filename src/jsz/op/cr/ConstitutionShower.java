@@ -16,6 +16,7 @@ public class ConstitutionShower {
         try {
             parser.readConstitutuion("C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt");
             constitution.objectifyConstitution(parser.getConstitutionArray());
+            constitution.printConstitution();
         } catch (IOException e) {
             e.printStackTrace();
         }

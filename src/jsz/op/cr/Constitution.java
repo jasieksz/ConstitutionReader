@@ -42,11 +42,11 @@ public class Constitution {
             }
         }
     }
-
+    // TO DO: co jeżeli nie ma kolejnego rozdziału!?!?! - POPRAWIC
     // Finds index of the next chapter in the array
     private Integer indexOfChapter(Integer start , List<String> constitution){
         String line = constitution.get(start);
-        while (!line.contains("Rozdział")) {
+        while (!line.contains("Rozdział") && start < constitution.size()-1) {
             start += 1;
             line = constitution.get(start);
         }
@@ -55,7 +55,7 @@ public class Constitution {
     // Finds index of the next article in the array
     private Integer indexOfArticle(Integer start , List<String> constitution){
         String line = constitution.get(start);
-        while (!line.contains("Art.")) {
+        while (!line.contains("Art.") && start < constitution.size()-1) {
             start += 1;
             line = constitution.get(start);
         }
@@ -70,6 +70,12 @@ public class Constitution {
             result = String.join("\n",result,tmp);
         }
         return result;
+    }
+
+    public void printConstitution(){
+        for (Chapter chapter : chapterList){
+            chapter.printArticles();
+        }
     }
 
 }
