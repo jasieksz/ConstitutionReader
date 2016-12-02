@@ -9,5 +9,11 @@ import java.util.List;
 */
 public class Article {
 
-    private int number;
+    private final String article;
+
+    public Article(String article) {
+        this.article = article;
+    }
+
+
 }

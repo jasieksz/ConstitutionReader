@@ -16,4 +16,8 @@ public class Chapter {
     public Chapter (String chapterName) {
         this.chapterName = chapterName;
     }
+
+    public void addArticle(Article article){
+        articleList.add(article);
+    }
 }
