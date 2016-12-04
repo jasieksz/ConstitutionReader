@@ -34,7 +34,7 @@ public class Constitution {
         countObjects(constitution);
         //System.out.println("Debug0 : i=" + i +" ichap=" + ichapter +" iart="+iarticle + " size=" + size);
 
-        while (i < size) {
+        while (chapterCounter > 0 && i < size) {
 
             i = findChapter(i, constitution);
             iarticle = findArticle(i, constitution);
@@ -47,8 +47,11 @@ public class Constitution {
 
                 i = findArticle(i, constitution);
                 iarticle = findArticle(i+1,constitution);
-                sarticle = joinStrings(i,min(iarticle-1,ichapter-1),constitution);
-
+                if (i < ichapter)
+                    sarticle = joinStrings(i,min(iarticle-1,ichapter-1),constitution);
+                else
+                    sarticle = joinStrings(i,size-1,constitution);
+                //System.out.println("Debug : i=" + i +" iart="+iarticle +" ichap=" + ichapter  + " size=" + size);
                 Article article = new Article(sarticle);
                 articleCounter -= 1;
                 i = iarticle;
@@ -85,14 +88,14 @@ public class Constitution {
         return result;
     }
 
-    public void printChapters(){
-        for (Chapter c : chapterList){
-            System.out.println(c.toString());
-        }
+    public void printChapters(Integer a){
+        System.out.println(chapterList.get(a-1).toString());
+        chapterList.get(a-1).printArticles();
     }
-    public void printArticles(){
-        for (Article c : articleList){
-            System.out.println(c.toString());
+    public void printArticles(Integer a, Integer b){
+        while (a <= b){
+            System.out.println(articleList.get(a-1).toString());
+            a +=1;
         }
     }
 

@@ -18,8 +18,8 @@ public class ConstitutionShower {
             parser.parseConstitution(path);
             //parser.printConstitution();
             constitution.objectifyConstitution(parser.getConstitutionArray());
-            constitution.printChapters();
-            constitution.printArticles();
+            constitution.printChapters(2);
+            //constitution.printArticles(3,7);
 
         } catch (IOException e) {
             e.printStackTrace();
