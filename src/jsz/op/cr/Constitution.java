@@ -15,6 +15,8 @@ public class Constitution {
 
     private List<Chapter> chapterList = new ArrayList<>();
     private List<Article> articleList = new ArrayList<>();
+    private List<String> introConst = new ArrayList<>();
+
     private long chapterCounter;
     private long articleCounter;
 
@@ -25,6 +27,9 @@ public class Constitution {
 
     public void objectifyConstitution(List<String> constitution) {
 
+
+
+
         Integer size = constitution.size();
         Integer i = 0;
         Integer iarticle = 0;
@@ -32,7 +37,11 @@ public class Constitution {
         String schapter = null;
         String sarticle = null;
         countObjects(constitution);
-        //System.out.println("Debug0 : i=" + i +" ichap=" + ichapter +" iart="+iarticle + " size=" + size);
+
+        ichapter = findChapter(0,constitution);
+        for (Integer j=0;j<ichapter;j++){
+            introConst.add(constitution.get(j));
+        }
 
         while (chapterCounter > 0 && i < size) {
 
@@ -97,6 +106,10 @@ public class Constitution {
             System.out.println(articleList.get(a-1).toString());
             a +=1;
         }
+    }
+    public void printIntro(){
+        for (String line : introConst)
+            System.out.println(line);
     }
 
 

@@ -11,16 +11,14 @@ public class ConstitutionShower {
 
     private ConstitutionParser parser = new ConstitutionParser();
     private Constitution constitution = new Constitution();
+    private ArgsParser inputParser = new ArgsParser();
     private final String path = "C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt";
 
-    public void readConstitution(String args[]){
+    public void readConstitution(){
         try {
             parser.parseConstitution(path);
-            //parser.printConstitution();
             constitution.objectifyConstitution(parser.getConstitutionArray());
-            constitution.printChapters(2);
-            //constitution.printArticles(3,7);
-
+            inputParser.argsParse(constitution);
         } catch (IOException e) {
             e.printStackTrace();
         }

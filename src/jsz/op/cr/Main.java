@@ -6,6 +6,6 @@ package jsz.op.cr;
 public class Main {
     public static void main(String args[]){
         ConstitutionShower reader1 = new ConstitutionShower();
-        reader1.readConstitution(args);
+        reader1.readConstitution();
     }
 }
