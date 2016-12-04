@@ -20,18 +20,20 @@ public class Constitution {
         Integer iNextArticle = 0;
         String line = null;
         String lineTmp = null;
-        while (i < constitution.size()){
+        while (i < constitution.size()-1){
             i = indexOfChapter(i,constitution);
             line = joinStrings(i,i+1,constitution);
             Chapter chapter = new Chapter(line);
             chapterList.add(chapter);
-            iNextChapter = indexOfChapter(i,constitution);
+            iNextChapter = indexOfChapter(i+1,constitution);
+            //System.out.println("Debug next chapter : " + iNextChapter);
             i = indexOfArticle(i,constitution); // czy moge wywalic za while
-            while (i < iNextChapter){
+           // System.out.println("Debug next article : " + i);
+            while (i < iNextChapter && i < constitution.size()){
                 iNextArticle = indexOfArticle(i+1,constitution);
                 line = joinStrings(i,iNextArticle-1,constitution);
                 Article article = new Article(line);
-
+                //System.out.println("Debug : "+article.toString());
                 articleList.add(article);
                 // update listy artykolow rozdzialu
                 Chapter chapterTmp = chapterList.get(chapterList.size()-1); // ostatni element
@@ -64,7 +66,7 @@ public class Constitution {
     // przedział [start,end]
     private String joinStrings (Integer start, Integer end, List<String> constitution){
         String result = constitution.get(start);
-        while (start < end){
+        while (start < end && start < constitution.size()-1){
             start++;
             String tmp = constitution.get(start);
             result = String.join("\n",result,tmp);

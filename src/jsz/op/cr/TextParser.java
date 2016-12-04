@@ -12,7 +12,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.sun.activation.registries.LogSupport.log;
 
 /*
     This class is responisble for reading the text file
@@ -37,7 +36,7 @@ public class TextParser {
                 if (line.equals("©Kancelaria Sejmu") || line.matches("....-..-..") || line.length() < 2)
                     System.out.print("");
                 else{
-                    if (line.endsWith("-")){
+                    if (line.endsWith("-")){ // NIE DZIALA jeżeli 2 linie podrzą mają "-"
                         lineTmp = reader.readLine(); //nie trzeba sprawdzac czy ostatnio bo konczy sie na -
                         line = line.substring(0,line.length()-1);
                         if (!lineTmp.contains(" ")){
@@ -45,12 +44,24 @@ public class TextParser {
                             constitutionArray.add(i,line);
                             i += 1;
                         }
-                        else if (lineTmp.length() > lineTmp.indexOf(" ")){
+                        else if (lineTmp.length() > lineTmp.indexOf(" ") && !lineTmp.contains("-")){
                             line = line.concat(lineTmp.substring(0,lineTmp.indexOf(" ")));
                             lineTmp = lineTmp.substring(lineTmp.indexOf(" ")+1,lineTmp.length());
                             constitutionArray.add(i,line);
                             constitutionArray.add(i+1,lineTmp);
                             i += 2;
+                        }
+                        else if (lineTmp.length() > lineTmp.indexOf(" ") && lineTmp.contains("-")){
+                            line = line.concat(lineTmp.substring(0,lineTmp.indexOf(" ")));
+                            lineTmp = lineTmp.substring(lineTmp.indexOf(" ")+1,lineTmp.length());
+                            constitutionArray.add(i,line);
+                            line = lineTmp;
+                            lineTmp = reader.readLine();
+                            line = line.concat(lineTmp.substring(0,lineTmp.indexOf(" ")));
+                            lineTmp = lineTmp.substring(lineTmp.indexOf(" ")+1,lineTmp.length());
+                            constitutionArray.add(i+1,lineTmp);
+                            i += 3;
+
                         }
                     }
                     else {
