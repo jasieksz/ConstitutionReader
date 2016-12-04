@@ -3,6 +3,8 @@ package jsz.op.cr;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.Integer.min;
+
 /*
     This class represents constitution in state
     after parsing the text with TextParser class
@@ -13,71 +15,86 @@ public class Constitution {
 
     private List<Chapter> chapterList = new ArrayList<>();
     private List<Article> articleList = new ArrayList<>();
+    private long chapterCounter;
+    private long articleCounter;
 
-    public void objectifyConstitution(List<String> constitution){
+    private void countObjects(List<String> constitution){
+        chapterCounter = constitution.stream().filter(line -> line.contains("Rozdział")).count();
+        articleCounter = constitution.stream().filter(line -> line.contains("Art.")).count();
+    }
+
+    public void objectifyConstitution(List<String> constitution) {
+
+        Integer size = constitution.size();
         Integer i = 0;
-        Integer iNextChapter = 0;
-        Integer iNextArticle = 0;
-        String line = null;
-        String lineTmp = null;
-        while (i < constitution.size()-1){
-            i = indexOfChapter(i,constitution);
-            line = joinStrings(i,i+1,constitution);
-            Chapter chapter = new Chapter(line);
-            chapterList.add(chapter);
-            iNextChapter = indexOfChapter(i+1,constitution);
-            //System.out.println("Debug next chapter : " + iNextChapter);
-            i = indexOfArticle(i,constitution); // czy moge wywalic za while
-           // System.out.println("Debug next article : " + i);
-            while (i < iNextChapter && i < constitution.size()){
-                iNextArticle = indexOfArticle(i+1,constitution);
-                line = joinStrings(i,iNextArticle-1,constitution);
-                Article article = new Article(line);
-                //System.out.println("Debug : "+article.toString());
-                articleList.add(article);
-                // update listy artykolow rozdzialu
-                Chapter chapterTmp = chapterList.get(chapterList.size()-1); // ostatni element
-                chapterTmp.addArticle(article);
-                chapterList.set(chapterList.size()-1,chapterTmp);
+        Integer iarticle = 0;
+        Integer ichapter = 0;
+        String schapter = null;
+        String sarticle = null;
+        countObjects(constitution);
+        //System.out.println("Debug0 : i=" + i +" ichap=" + ichapter +" iart="+iarticle + " size=" + size);
 
-                i = iNextArticle;
+        while (i < size) {
+
+            i = findChapter(i, constitution);
+            iarticle = findArticle(i, constitution);
+            schapter = joinStrings(i,iarticle-1,constitution);
+            Chapter chapter = new Chapter(schapter);
+            chapterCounter -= 1;
+            ichapter = findChapter(i+1,constitution);
+
+            while (i < ichapter){
+
+                i = findArticle(i, constitution);
+                iarticle = findArticle(i+1,constitution);
+                sarticle = joinStrings(i,min(iarticle-1,ichapter-1),constitution);
+
+                Article article = new Article(sarticle);
+                articleCounter -= 1;
+                i = iarticle;
+                chapter.addArticle(article);
+                articleList.add(article);
             }
+            chapterList.add(chapter);
+            i = ichapter;
         }
+
     }
-    // TO DO: co jeżeli nie ma kolejnego rozdziału!?!?! - POPRAWIC
-    // Finds index of the next chapter in the array
-    private Integer indexOfChapter(Integer start , List<String> constitution){
-        String line = constitution.get(start);
-        while (!line.contains("Rozdział") && start < constitution.size()-1) {
-            start += 1;
-            line = constitution.get(start);
-        }
-        return start;
+
+    private Integer findArticle(Integer i, List<String> constitution){
+        Integer article = i;
+        while (articleCounter > 0 && article < constitution.size() && !constitution.get(article).contains("Art. "))
+            article += 1;
+        return article;
     }
-    // Finds index of the next article in the array
-    private Integer indexOfArticle(Integer start , List<String> constitution){
-        String line = constitution.get(start);
-        while (!line.contains("Art.") && start < constitution.size()-1) {
-            start += 1;
-            line = constitution.get(start);
-        }
-        return start;
+
+    private Integer findChapter(Integer i, List<String> constitution){
+        Integer chapter = i;
+            while (chapterCounter>0 && chapter < constitution.size() && !constitution.get(chapter).contains("Rozdział"))
+                chapter += 1;
+        return chapter;
     }
-    // przedział [start,end]
-    private String joinStrings (Integer start, Integer end, List<String> constitution){
-        String result = constitution.get(start);
-        while (start < end && start < constitution.size()-1){
-            start++;
-            String tmp = constitution.get(start);
-            result = String.join("\n",result,tmp);
+
+    private String joinStrings(Integer s, Integer e, List<String> constitution) {
+        String result = constitution.get(s);
+        s += 1;
+        while (s <= e) {
+            result = String.join("\n", result, constitution.get(s));
+            s += 1;
         }
         return result;
     }
 
-    public void printConstitution(){
-        for (Chapter chapter : chapterList){
-            chapter.printArticles();
+    public void printChapters(){
+        for (Chapter c : chapterList){
+            System.out.println(c.toString());
         }
     }
+    public void printArticles(){
+        for (Article c : articleList){
+            System.out.println(c.toString());
+        }
+    }
+
 
 }

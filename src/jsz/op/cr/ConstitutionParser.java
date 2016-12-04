@@ -28,6 +28,7 @@ public class ConstitutionParser {
                    .filter(line -> !line.equals("©Kancelaria Sejmu"))
                    .filter(line -> line.length() > 1)
                    .collect(Collectors.toCollection(ArrayList::new));
+
            parseSplitLines();
         }
     }

@@ -21,6 +21,11 @@ public class Chapter {
         articleList.add(article);
     }
 
+    @Override
+    public String toString() {
+        return chapterName;
+    }
+
     public void printArticles (){
         for (Article article : articleList) {
             System.out.println(article.toString());
