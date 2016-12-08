@@ -18,9 +18,11 @@ public class ConstitutionShower {
         try {
             parser.parseConstitution(path);
             constitution.objectifyConstitution(parser.getConstitutionArray());
-            inputParser.argsParse(constitution);
+            inputParser.argsParse(constitution,inputParser.readCmd());
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (IllegalArgumentException e){
+            System.out.println(e.toString());
         }
     }
 }

@@ -10,24 +10,24 @@ import java.util.Scanner;
 
 public class ArgsParser {
 
-    private static String[] opcje;
-
-    private static void readCmd(){
+    public String[] readCmd(){
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String s = sc.next();
-        opcje = s.split(" ");
+        String[] opcje = s.split(" ");
+        return opcje;
     }
 // ERROR -> 13 rozdziałów 243 artykuly
-    public void argsParse(Constitution constitution){
-        readCmd();
+    public void argsParse(Constitution constitution, String[] opcje) throws IllegalArgumentException{
         if (opcje[0].equals("Rozdział"))
             constitution.printChapters(Integer.valueOf(opcje[1]));
-        if (opcje[0].equals("Wstęp"))
+        else if (opcje[0].equals("Wstęp"))
             constitution.printIntro();
-        if (opcje[0].equals("Artykuł"))
+        else if (opcje[0].equals("Artykuł"))
             constitution.printArticles(Integer.valueOf(opcje[1]),Integer.valueOf(opcje[1]));
-        if (opcje[0].equals("Artykuły"))
+        else if (opcje[0].equals("Artykuły"))
             constitution.printArticles(Integer.valueOf(opcje[1]),Integer.valueOf(opcje[2]));
+        else
+            throw new IllegalArgumentException("Nie ma takiego polecenia");
 
     }
 }

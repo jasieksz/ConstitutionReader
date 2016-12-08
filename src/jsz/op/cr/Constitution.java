@@ -27,9 +27,6 @@ public class Constitution {
 
     public void objectifyConstitution(List<String> constitution) {
 
-
-
-
         Integer size = constitution.size();
         Integer i = 0;
         Integer iarticle = 0;
@@ -97,11 +94,15 @@ public class Constitution {
         return result;
     }
 
-    public void printChapters(Integer a){
+    public void printChapters(Integer a) throws IllegalArgumentException {
+        if (a < 1 || a > 13)
+            throw new IllegalArgumentException("Nie ma takiego rozdziału");
         System.out.println(chapterList.get(a-1).toString());
         chapterList.get(a-1).printArticles();
     }
-    public void printArticles(Integer a, Integer b){
+    public void printArticles(Integer a, Integer b) throws IllegalArgumentException{
+        if (a < 1 || b > 243 || b > a)
+            throw  new IllegalArgumentException("Nie ma takiego artykułu");
         while (a <= b){
             System.out.println(articleList.get(a-1).toString());
             a +=1;
