@@ -53,11 +53,14 @@ public class Constitution {
 
                 i = findArticle(i, constitution);
                 iarticle = findArticle(i+1,constitution);
+
+                //if (constitution.get(i).contains("Art. 243"))
+                    //System.out.println("Debug1 : i="+i+ "ich="+ichapter+" iart="+iarticle);
+
                 if (i < ichapter)
                     sarticle = joinStrings(i,min(iarticle-1,ichapter-1),constitution);
                 else
-                    sarticle = joinStrings(i,size-1,constitution);
-                //System.out.println("Debug : i=" + i +" iart="+iarticle +" ichap=" + ichapter  + " size=" + size);
+                    sarticle = joinStrings(i,min(size-1,iarticle-1),constitution);
                 Article article = new Article(sarticle);
                 articleCounter -= 1;
                 i = iarticle;
@@ -79,6 +82,8 @@ public class Constitution {
 
     private Integer findChapter(Integer i, List<String> constitution){
         Integer chapter = i;
+            if (chapterCounter == 0)
+                return constitution.size();
             while (chapterCounter>0 && chapter < constitution.size() && !constitution.get(chapter).contains("Rozdział"))
                 chapter += 1;
         return chapter;
@@ -101,8 +106,10 @@ public class Constitution {
         chapterList.get(a-1).printArticles();
     }
     public void printArticles(Integer a, Integer b) throws IllegalArgumentException{
-        if (a < 1 || b > 243 || b > a)
-            throw  new IllegalArgumentException("Nie ma takiego artykułu");
+        if (a < 1 || b > 243)
+            throw new IllegalArgumentException("Nie ma takiego artykułu");
+        if (b < a)
+            throw new IllegalArgumentException("Zły zakres artykułów");
         while (a <= b){
             System.out.println(articleList.get(a-1).toString());
             a +=1;
