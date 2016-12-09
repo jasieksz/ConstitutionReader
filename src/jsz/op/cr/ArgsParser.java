@@ -29,7 +29,7 @@ public class ArgsParser {
         else if (opcje[1].equals("Artykuły"))
             constitution.printArticles(Integer.valueOf(opcje[2]),Integer.valueOf(opcje[3]));
         else
-            throw new IllegalArgumentException("Nie ma takiego polecenia");
+            throw new IllegalArgumentException("Nie ma takiego polecenia : " + opcje[1]);
 
     }
 }

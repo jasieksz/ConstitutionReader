@@ -19,7 +19,7 @@ public class ConstitutionShower {
             //opcje = inputParser.readCmd();
             parser.parseConstitution(args[0]); // parsuje niepotrzebne znaki i "-"
             constitution.objectifyConstitution(ConstitutionParser.getConstitutionArray()); // tworzy rozdziały i artykuły
-            inputParser.argsParse(constitution, args); // wczytywanie arguemtnow z cmd i obsluga wypisywania
+            inputParser.argsParse(constitution, args); //obsluga wypisywania - TODO "change class/method name"
         } catch (IOException e) {
             System.out.println("Nie ma takiego pliku");
         } catch (IllegalArgumentException e){

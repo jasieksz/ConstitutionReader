@@ -101,7 +101,7 @@ public class Constitution {
     // a -> numer rozdziału
     public void printChapters(Integer a) throws IllegalArgumentException {
         if (a < 1 || a > 13)
-            throw new IllegalArgumentException("Nie ma takiego rozdziału");
+            throw new IllegalArgumentException("Nie ma takiego rozdziału : " + a);
         System.out.println(chapterList.get(a-1).toString());
         chapterList.get(a-1).printArticles();
     }
