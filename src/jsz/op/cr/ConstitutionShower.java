@@ -14,12 +14,12 @@ public class ConstitutionShower {
     private ArgsParser inputParser = new ArgsParser();
    // private String path = "C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt";
 
-    public void readConstitution(String path){
+    public void readConstitution(String[] args){
         try {
             //opcje = inputParser.readCmd();
-            parser.parseConstitution(path); // parsuje niepotrzebne znaki i "-"
+            parser.parseConstitution(args[0]); // parsuje niepotrzebne znaki i "-"
             constitution.objectifyConstitution(ConstitutionParser.getConstitutionArray()); // tworzy rozdziały i artykuły
-            inputParser.argsParse(constitution, inputParser.readCmd()); // wczytywanie arguemtnow z cmd i obsluga wypisywania
+            inputParser.argsParse(constitution, args); // wczytywanie arguemtnow z cmd i obsluga wypisywania
         } catch (IOException e) {
             System.out.println("Nie ma takiego pliku");
         } catch (IllegalArgumentException e){
