@@ -10,13 +10,14 @@ import java.util.Scanner;
 
 public class ArgsParser {
 
+    // wczytyanie argumentow z cmd, i wpisanie ich do tablicy
     public String[] readCmd(){
         Scanner sc = new Scanner(System.in).useDelimiter("\\n");
         String s = sc.next();
         String[] opcje = s.split(" ");
         return opcje;
     }
-// ERROR -> 13 rozdziałów 243 artykuly
+// obsługa opcji
     public void argsParse(Constitution constitution, String[] opcje) throws IllegalArgumentException{
         if (opcje[0].equals("Rozdział"))
             constitution.printChapters(Integer.valueOf(opcje[1]));

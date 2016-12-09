@@ -12,16 +12,16 @@ public class ConstitutionShower {
     private ConstitutionParser parser = new ConstitutionParser();
     private Constitution constitution = new Constitution();
     private ArgsParser inputParser = new ArgsParser();
-    private final String path = "C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt";
+   // private String path = "C:\\Users\\JASIEK\\Google Drive\\AGH\\Semestr III\\Programowanie Obiektowe\\ConstitutionReader\\konstytucja.txt";
 
-    public void readConstitution(){
+    public void readConstitution(String path){
         try {
-            parser.parseConstitution(path);
-            constitution.objectifyConstitution(parser.getConstitutionArray());
-
-            inputParser.argsParse(constitution,inputParser.readCmd());
+            //opcje = inputParser.readCmd();
+            parser.parseConstitution(path); // parsuje niepotrzebne znaki i "-"
+            constitution.objectifyConstitution(ConstitutionParser.getConstitutionArray()); // tworzy rozdziały i artykuły
+            inputParser.argsParse(constitution, inputParser.readCmd()); // wczytywanie arguemtnow z cmd i obsluga wypisywania
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Nie ma takiego pliku");
         } catch (IllegalArgumentException e){
             System.out.println(e.toString());
         }

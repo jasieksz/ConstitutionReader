@@ -14,13 +14,14 @@ import java.util.stream.Stream;
 public class ConstitutionParser {
 
     private final static Charset ENCODING = StandardCharsets.UTF_8;
-    public static List<String> constitutionArray = new ArrayList<>();
 
-    public List<String> getConstitutionArray() {
+    public static List<String> getConstitutionArray() {
         return constitutionArray;
     }
 
+    public static List<String> constitutionArray = new ArrayList<>();
 
+    // filtruje niepotrzebne znaki
     public void parseConstitution (String fileName) throws IOException{
         try (Stream<String> lines = Files.lines(Paths.get(fileName),ENCODING)){
            constitutionArray = lines
@@ -29,12 +30,12 @@ public class ConstitutionParser {
                    .filter(line -> line.length() > 1)
                    .collect(Collectors.toCollection(ArrayList::new));
 
-           parseSplitLines();
+           parseSplitLines(); // łączy line rozdzielone "-"
         }
     }
 
     public static void parseSplitLines(){
-        Integer i=0;
+        Integer i=0; // aktualny indeks
         Integer size = constitutionArray.size();
         String line1 = null;
         String line2 = null;
@@ -44,14 +45,14 @@ public class ConstitutionParser {
                 line2 = constitutionArray.get(i+1);
                 line1 = line1.substring(0,line1.length()-1);
 
-                if (line2.contains(" ")){
+                if (line2.contains(" ")){ // jezeli po zlaczeniu nie zostanie pusta linia
                     line1 = line1.concat(line2.substring(0,line2.indexOf(" ")));
                     line2 = line2.substring(line2.indexOf(" ")+1,line2.length());
                     constitutionArray.set(i,line1);
                     constitutionArray.set(i+1,line2);
                     i+=1;
                 }
-                else if(!line2.contains(" ")){
+                else if(!line2.contains(" ")){ // jezeli po zlaczeniu zostanie pusta linia
                     line1 = line1.concat(line2);
                     constitutionArray.set(i,line1);
                     constitutionArray.remove(i+1);
